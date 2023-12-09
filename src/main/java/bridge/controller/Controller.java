@@ -16,6 +16,7 @@ public class Controller {
     }
 
     public void start() {
+        outputView.printStartNotice();
 
     }
 }

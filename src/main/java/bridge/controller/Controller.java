@@ -17,6 +17,6 @@ public class Controller {
 
     public void start() {
         outputView.printStartNotice();
-
+        int bridgeLength = inputView.readBridgeSize();
     }
 }

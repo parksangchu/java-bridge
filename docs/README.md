@@ -20,15 +20,19 @@
 
 ### 역할 책임 목록
 
+- BridgeGame
+    - 사다리 게임의 흐름을 통제한다.
 - Bridge
     - 다리 구조를 저장한다.
     - 입력의 일치 여부를 확인한다.
-- Direction
-    - 다리를 건널때 방향에 대한 입력 유효성을 검증한다.
+- Moving
+    - 움직임 입력 유효성을 검증한다.
 - BridgeLength
     - 다리 길이 유효성을 검증한다.
 - BridgeMaker
     - 다리 길이를 받아 다리를 생성한다.
+- BridgeRandomNumberGenerator
+    - 다리 생성을 위한 임의 숫자를 생성한다.
 - Round
     - 시도 횟수에 따라 값이 증가한다.
 - SuperVisor

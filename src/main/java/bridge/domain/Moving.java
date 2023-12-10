@@ -16,4 +16,7 @@ public class Moving {
         }
     }
 
+    public String getDirection() {
+        return direction;
+    }
 }

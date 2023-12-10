@@ -8,4 +8,9 @@ public class Bridge {
     public Bridge(List<String> map) {
         this.map = map;
     }
+
+    public boolean isWrongWay(Player player) {
+        return !map.get(player.getPosition() - 1)
+                .equals(player.getMoving());
+    }
 }

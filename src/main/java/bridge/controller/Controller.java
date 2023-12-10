@@ -25,8 +25,9 @@ public class Controller {
         Player player = new Player();
         Bridge bridge = makeBridge();
         BridgeGame bridgeGame = new BridgeGame(player, bridge);
-        Moving moving = new Moving(inputView.readMoving());
+        Moving moving = createMoving();
         player.initMoving(moving);
+        bridgeGame.move();
     }
 
     private Bridge makeBridge() {
@@ -49,5 +50,15 @@ public class Controller {
 
     private BridgeMaker createBridgeMaker() {
         return new BridgeMaker(new BridgeRandomNumberGenerator());
+    }
+
+    private Moving createMoving() {
+        while (true) {
+            try {
+                return new Moving(inputView.readMoving());
+            } catch (IllegalArgumentException e) {
+                outputView.printError(e);
+            }
+        }
     }
 }

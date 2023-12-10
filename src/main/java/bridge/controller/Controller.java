@@ -1,7 +1,10 @@
 package bridge.controller;
 
 import bridge.domain.Bridge;
+import bridge.domain.BridgeGame;
 import bridge.domain.BridgeSize;
+import bridge.domain.Moving;
+import bridge.domain.Player;
 import bridge.domain.util.BridgeMaker;
 import bridge.domain.util.BridgeRandomNumberGenerator;
 import bridge.view.InputView;
@@ -19,7 +22,11 @@ public class Controller {
 
     public void start() {
         outputView.printStartNotice();
+        Player player = new Player();
         Bridge bridge = makeBridge();
+        BridgeGame bridgeGame = new BridgeGame(player, bridge);
+        Moving moving = new Moving(inputView.readMoving());
+        player.initMoving(moving);
     }
 
     private Bridge makeBridge() {

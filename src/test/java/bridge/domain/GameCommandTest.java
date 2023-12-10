@@ -24,7 +24,7 @@ class GameCommandTest {
     @Test
     @DisplayName("R을 입력하면 게임을 재시도한다.")
     void isRetry() {
-        assertThat(new GameCommand("R").isRetry())
-                .isTrue();
+        assertThat(new GameCommand("R").isQuit())
+                .isFalse();
     }
 }

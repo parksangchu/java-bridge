@@ -1,17 +1,19 @@
 package bridge.domain;
 
+import java.util.List;
+
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
 public class BridgeGame {
     private final Player player;
     private final Bridge bridge;
-    private final int turn;
+    private boolean isFail;
 
     public BridgeGame(Player player, Bridge bridge) {
         this.player = player;
         this.bridge = bridge;
-        turn = 1;
+        isFail = false;
     }
 
     /**
@@ -21,17 +23,23 @@ public class BridgeGame {
      */
     public void move() {
         player.crossBridge();
-        judgeResult();
+        boolean isRightWay = bridge.isRightWay(player);
+        recordMap(isRightWay);
+        notifyMap(isRightWay);
     }
 
-    private void judgeResult() {
-        if (bridge.isRightWay(player)) {
+    private void recordMap(boolean isRightWay) {
+        player.recordMap(isRightWay);
+    }
 
+    private void notifyMap(boolean isRightWay) {
+        if (!isRightWay) {
+            isFail = true;
         }
     }
 
-    public void makeMap() {
-
+    public List<List<String>> getMap() {
+        return player.getMap();
     }
 
     /**
@@ -40,5 +48,11 @@ public class BridgeGame {
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     public void retry() {
+        player.retry();
+        isFail = false;
+    }
+
+    public boolean isFail() {
+        return isFail;
     }
 }

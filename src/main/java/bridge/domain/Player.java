@@ -1,6 +1,7 @@
 package bridge.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player {
@@ -11,9 +12,17 @@ public class Player {
     private Moving moving;
     private List<List<String>> map;
 
+    public Player() {
+        this.position = 0;
+        initMap();
+    }
 
-    public void initMoving(Moving moving) {
-        this.moving = moving;
+    public void retry() {
+        initPosition();
+        initMap();
+    }
+
+    private void initPosition() {
         position = 0;
     }
 
@@ -23,6 +32,15 @@ public class Player {
         map = new ArrayList<>();
         map.add(upperSide);
         map.add(downSide);
+    }
+
+    public void initMoving(Moving moving) {
+        this.moving = moving;
+    }
+
+
+    public void crossBridge() {
+        position++;
     }
 
     public void recordMap(boolean isRightWay) {
@@ -43,9 +61,6 @@ public class Player {
         return WRONG_WAY;
     }
 
-    public void crossBridge() {
-        position++;
-    }
 
     public int getPosition() {
         return position;
@@ -53,5 +68,9 @@ public class Player {
 
     public String getMoving() {
         return moving.getDirection();
+    }
+
+    public List<List<String>> getMap() {
+        return Collections.unmodifiableList(map);
     }
 }

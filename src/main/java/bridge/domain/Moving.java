@@ -11,7 +11,7 @@ public class Moving {
     }
 
     private void validate(String direction) {
-        if (direction.equals(UPPER_SIDE) && direction.equals(DOWN_SIDE)) {
+        if (!direction.equals(UPPER_SIDE) && !direction.equals(DOWN_SIDE)) {
             throw new IllegalArgumentException("[ERROR] 올바른 방향이 아닙니다.");
         }
     }

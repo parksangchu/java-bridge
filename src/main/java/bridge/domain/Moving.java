@@ -16,6 +16,10 @@ public class Moving {
         }
     }
 
+    public boolean isUpperSide() {
+        return direction.equals(UPPER_SIDE);
+    }
+
     public String getDirection() {
         return direction;
     }

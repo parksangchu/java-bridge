@@ -3,14 +3,15 @@ package bridge.domain;
 import java.util.List;
 
 public class Bridge {
-    private final List<String> map;
+    private final List<String> structure;
 
-    public Bridge(List<String> map) {
-        this.map = map;
+    public Bridge(List<String> structure) {
+        this.structure = structure;
     }
 
-    public boolean isWrongWay(Player player) {
-        return !map.get(player.getPosition() - 1)
+    public boolean isRightWay(Player player) {
+        return structure.get(player.getPosition() - 1)
                 .equals(player.getMoving());
     }
+
 }

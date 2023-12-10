@@ -55,4 +55,8 @@ public class BridgeGame {
     public boolean isFail() {
         return isFail;
     }
+
+    public boolean isEnd() {
+        return bridge.isFinal(player);
+    }
 }

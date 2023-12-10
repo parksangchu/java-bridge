@@ -6,4 +6,8 @@ public class Turn {
     public void increaseTurn() {
         number++;
     }
+
+    public int getNumber() {
+        return number;
+    }
 }

@@ -42,8 +42,11 @@ public class Controller {
                 bridgeGame.retry();
                 turn.increaseTurn();
             }
+            if (bridgeGame.isEnd()) {
+                break;
+            }
         }
-
+        outputView.printResult(bridgeGame.getMap(), bridgeGame.isFail(), turn.getNumber());
     }
 
     private Bridge makeBridge() {

@@ -14,4 +14,7 @@ public class Bridge {
                 .equals(player.getMoving());
     }
 
+    public boolean isFinal(Player player) {
+        return player.getPosition() == structure.size();
+    }
 }

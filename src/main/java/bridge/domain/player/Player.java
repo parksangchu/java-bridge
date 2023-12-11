@@ -10,11 +10,10 @@ public class Player {
     private Moving moving;
 
     public Player() {
-        initPosition();
-        initMap();
+        init();
     }
 
-    public void retry() {
+    public void init() {
         initPosition();
         initMap();
     }

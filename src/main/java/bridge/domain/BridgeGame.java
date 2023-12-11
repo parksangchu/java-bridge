@@ -32,7 +32,7 @@ public class BridgeGame {
     }
 
     public void retry() {
-        player.retry();
+        player.init();
         turn.increaseTurn();
     }
 

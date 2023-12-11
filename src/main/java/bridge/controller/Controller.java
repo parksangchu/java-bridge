@@ -80,11 +80,11 @@ public class Controller {
     }
 
     private void checkRound(BridgeGame bridgeGame, Turn turn) {
-        if (bridgeGame.isEnd()) {
-            run = false;
-        }
         if (bridgeGame.isFail()) {
             checkCommand(bridgeGame, turn);
+        }
+        if (bridgeGame.isEnd()) {
+            run = false;
         }
     }
 

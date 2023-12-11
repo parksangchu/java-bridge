@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BridgeMaker {
+    private static final int UPPER_SIDE_VALUE = 1;
 
     private final BridgeNumberGenerator bridgeNumberGenerator;
 
@@ -18,7 +19,7 @@ public class BridgeMaker {
         List<String> bridge = new ArrayList<>();
         while (bridge.size() < size) {
             int bridgeNumber = bridgeNumberGenerator.generate();
-            if (bridgeNumber == 1) {
+            if (bridgeNumber == UPPER_SIDE_VALUE) {
                 bridge.add(UPPER_SIDE.getDirection());
                 continue;
             }

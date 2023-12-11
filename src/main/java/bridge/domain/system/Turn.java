@@ -1,4 +1,4 @@
-package bridge.domain;
+package bridge.domain.system;
 
 public class Turn {
     private int number = 1;

@@ -1,19 +1,16 @@
-package bridge.domain;
+package bridge.domain.player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Player {
-    private static final String RIGHT_WAY = "O";
-    private static final String WRONG_WAY = "X";
-    private static final String NONE = " ";
     private int position;
+    private List<List<MapObject>> map;
     private Moving moving;
-    private List<List<String>> map;
 
     public Player() {
-        this.position = 0;
+        initPosition();
         initMap();
     }
 
@@ -27,8 +24,8 @@ public class Player {
     }
 
     private void initMap() {
-        List<String> upperSide = new ArrayList<>();
-        List<String> downSide = new ArrayList<>();
+        List<MapObject> upperSide = new ArrayList<>();
+        List<MapObject> downSide = new ArrayList<>();
         map = new ArrayList<>();
         map.add(upperSide);
         map.add(downSide);
@@ -38,29 +35,21 @@ public class Player {
         this.moving = moving;
     }
 
-
     public void crossBridge() {
         position++;
     }
 
     public void recordMap(boolean isRightWay) {
-        String object = selectObject(isRightWay);
+        MapObject selectedWay = MapObject.of(isRightWay);
+        MapObject unSelectedWay = MapObject.of();
         if (moving.isUpperSide()) {
-            map.get(0).add(object);
-            map.get(1).add(NONE);
+            map.get(0).add(selectedWay);
+            map.get(1).add(unSelectedWay);
             return;
         }
-        map.get(0).add(NONE);
-        map.get(1).add(object);
+        map.get(0).add(unSelectedWay);
+        map.get(1).add(selectedWay);
     }
-
-    private String selectObject(boolean isRightWay) {
-        if (isRightWay) {
-            return RIGHT_WAY;
-        }
-        return WRONG_WAY;
-    }
-
 
     public int getPosition() {
         return position;
@@ -70,7 +59,7 @@ public class Player {
         return moving.getDirection();
     }
 
-    public List<List<String>> getMap() {
+    public List<List<MapObject>> getMap() {
         return Collections.unmodifiableList(map);
     }
 }

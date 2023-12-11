@@ -1,4 +1,4 @@
-package bridge.domain;
+package bridge.domain.player;
 
 public enum MapObject {
     UNSELECTED_WAY(" "),
@@ -11,11 +11,15 @@ public enum MapObject {
         this.symbol = symbol;
     }
 
-    public MapObject of(boolean isRightWay) {
+    public static MapObject of(boolean isRightWay) {
         if (isRightWay) {
             return RIGHT_WAY;
         }
         return WRONG_WAY;
+    }
+
+    public static MapObject of() {
+        return UNSELECTED_WAY;
     }
 
     public String getSymbol() {

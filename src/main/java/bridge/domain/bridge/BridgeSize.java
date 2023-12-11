@@ -1,4 +1,4 @@
-package bridge.domain;
+package bridge.domain.bridge;
 
 public class BridgeSize {
     private static final int MIN_SIZE = 3;

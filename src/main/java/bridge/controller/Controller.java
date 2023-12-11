@@ -1,14 +1,14 @@
 package bridge.controller;
 
-import bridge.domain.Bridge;
 import bridge.domain.BridgeGame;
-import bridge.domain.BridgeSize;
-import bridge.domain.GameCommand;
-import bridge.domain.Moving;
-import bridge.domain.Player;
-import bridge.domain.Turn;
-import bridge.domain.util.BridgeMaker;
-import bridge.domain.util.BridgeRandomNumberGenerator;
+import bridge.domain.bridge.Bridge;
+import bridge.domain.bridge.BridgeMaker;
+import bridge.domain.bridge.BridgeRandomNumberGenerator;
+import bridge.domain.bridge.BridgeSize;
+import bridge.domain.player.Moving;
+import bridge.domain.player.Player;
+import bridge.domain.system.GameCommand;
+import bridge.domain.system.Turn;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 import java.util.List;
@@ -16,40 +16,29 @@ import java.util.List;
 public class Controller {
     private final InputView inputView;
     private final OutputView outputView;
+    private boolean run;
 
     public Controller(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.run = true;
     }
 
     public void start() {
         outputView.printStartNotice();
-        Player player = new Player();
-        Bridge bridge = makeBridge();
-        BridgeGame bridgeGame = new BridgeGame(player, bridge);
+        BridgeGame bridgeGame = readyGame();
         Turn turn = new Turn();
-        while (true) {
-            Moving moving = createMoving();
-            player.initMoving(moving);
-            bridgeGame.move();
-            List<List<String>> map = bridgeGame.getMap();
-            outputView.printMap(map);
-            if (bridgeGame.isFail()) {
-                GameCommand gameCommand = createGameCommand();
-                if (gameCommand.isQuit()) {
-                    break;
-                }
-                bridgeGame.retry();
-                turn.increaseTurn();
-            }
-            if (bridgeGame.isEnd()) {
-                break;
-            }
-        }
+        playGame(bridgeGame, turn);
         outputView.printResult(bridgeGame.getMap(), bridgeGame.isFail(), turn.getNumber());
     }
 
-    private Bridge makeBridge() {
+    private BridgeGame readyGame() {
+        Player player = new Player();
+        Bridge bridge = createBridge();
+        return new BridgeGame(player, bridge);
+    }
+
+    private Bridge createBridge() {
         BridgeSize bridgeSize = createBridgeSize();
         BridgeMaker bridgeMaker = createBridgeMaker();
         List<String> bridge = bridgeMaker.makeBridge(bridgeSize.getNumber());
@@ -71,6 +60,15 @@ public class Controller {
         return new BridgeMaker(new BridgeRandomNumberGenerator());
     }
 
+    private void playGame(BridgeGame bridgeGame, Turn turn) {
+        while (run) {
+            bridgeGame.initMoving(createMoving());
+            bridgeGame.move();
+            outputView.printMap(bridgeGame.getMap());
+            checkRound(bridgeGame, turn);
+        }
+    }
+
     private Moving createMoving() {
         while (true) {
             try {
@@ -79,6 +77,24 @@ public class Controller {
                 outputView.printError(e);
             }
         }
+    }
+
+    private void checkRound(BridgeGame bridgeGame, Turn turn) {
+        if (bridgeGame.isEnd()) {
+            run = false;
+        }
+        if (bridgeGame.isFail()) {
+            checkCommand(bridgeGame, turn);
+        }
+    }
+
+    private void checkCommand(BridgeGame bridgeGame, Turn turn) {
+        GameCommand gameCommand = createGameCommand();
+        if (gameCommand.isQuit()) {
+            run = false;
+        }
+        bridgeGame.retry();
+        turn.increaseTurn();
     }
 
     private GameCommand createGameCommand() {

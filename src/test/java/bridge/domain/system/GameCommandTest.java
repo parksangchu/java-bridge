@@ -1,4 +1,4 @@
-package bridge.domain;
+package bridge.domain.system;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;

@@ -1,7 +1,9 @@
-package bridge.domain;
+package bridge.domain.bridge;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import bridge.domain.player.Moving;
+import bridge.domain.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

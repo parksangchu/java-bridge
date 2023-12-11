@@ -27,7 +27,7 @@ class BridgeTest {
         Moving moving = new Moving("U");
         player.initMoving(moving);
         player.crossBridge();
-        assertThat(bridge.isRightWay(player)).isTrue();
+        assertThat(bridge.isRightWay(player.getPosition(), player.getMoving())).isTrue();
     }
 
     @Test
@@ -36,6 +36,6 @@ class BridgeTest {
         for (int i = 0; i < 3; i++) {
             player.crossBridge();
         }
-        assertThat(bridge.isFinal(player)).isTrue();
+        assertThat(bridge.isFinal(player.getPosition())).isTrue();
     }
 }

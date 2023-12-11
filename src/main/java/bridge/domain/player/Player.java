@@ -39,8 +39,8 @@ public class Player {
         position++;
     }
 
-    public void recordMap(boolean isRightWay) {
-        MapObject selectedWay = MapObject.of(isRightWay);
+    public void recordMap(boolean isSuccess) {
+        MapObject selectedWay = MapObject.of(isSuccess);
         MapObject unSelectedWay = MapObject.of();
         if (moving.isUpperSide()) {
             map.get(0).add(selectedWay);

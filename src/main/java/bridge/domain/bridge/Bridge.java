@@ -1,6 +1,5 @@
 package bridge.domain.bridge;
 
-import bridge.domain.player.Player;
 import java.util.List;
 
 public class Bridge {
@@ -10,12 +9,12 @@ public class Bridge {
         this.structure = structure;
     }
 
-    public boolean isRightWay(Player player) {
-        return structure.get(player.getPosition() - 1)
-                .equals(player.getMoving());
+    public boolean isRightWay(int position, String direction) {
+        return structure.get(position - 1)
+                .equals(direction);
     }
 
-    public boolean isFinal(Player player) {
-        return player.getPosition() == structure.size();
+    public boolean isFinal(int position) {
+        return position == structure.size();
     }
 }

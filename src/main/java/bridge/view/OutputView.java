@@ -29,20 +29,20 @@ public class OutputView {
         symbols.forEach(line -> System.out.printf(MAP_FORMAT, convertToString(line)));
     }
 
-    public void printResult(List<List<MapObject>> map, boolean isFail, int number) {
+    public void printResult(List<List<MapObject>> map, boolean isSuccess, int number) {
         System.out.println(RESULT_NOTICE);
         printMap(map);
-        System.out.printf(RESULT_FORMAT, convertToString(isFail), number);
+        System.out.printf(RESULT_FORMAT, convertToString(isSuccess), number);
     }
 
     private String convertToString(List<String> line) {
         return String.join(DELIMITER, line);
     }
 
-    private String convertToString(boolean isFail) {
-        if (isFail) {
-            return FAIL;
+    private String convertToString(boolean isSuccess) {
+        if (isSuccess) {
+            return SUCCESS;
         }
-        return SUCCESS;
+        return FAIL;
     }
 }

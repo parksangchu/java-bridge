@@ -11,8 +11,8 @@ public enum MapObject {
         this.symbol = symbol;
     }
 
-    public static MapObject of(boolean isRightWay) {
-        if (isRightWay) {
+    public static MapObject of(boolean isSuccess) {
+        if (isSuccess) {
             return RIGHT_WAY;
         }
         return WRONG_WAY;

@@ -8,7 +8,6 @@ import bridge.domain.bridge.BridgeSize;
 import bridge.domain.player.Moving;
 import bridge.domain.player.Player;
 import bridge.domain.system.GameCommand;
-import bridge.domain.system.Turn;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 import java.util.List;
@@ -27,9 +26,8 @@ public class Controller {
     public void start() {
         outputView.printStartNotice();
         BridgeGame bridgeGame = readyGame();
-        Turn turn = new Turn();
-        playGame(bridgeGame, turn);
-        outputView.printResult(bridgeGame.getMap(), bridgeGame.isFail(), turn.getNumber());
+        playGame(bridgeGame);
+        outputView.printResult(bridgeGame.getMap(), bridgeGame.isSuccess(), bridgeGame.getTurn());
     }
 
     private BridgeGame readyGame() {
@@ -60,12 +58,12 @@ public class Controller {
         return new BridgeMaker(new BridgeRandomNumberGenerator());
     }
 
-    private void playGame(BridgeGame bridgeGame, Turn turn) {
+    private void playGame(BridgeGame bridgeGame) {
         while (run) {
             bridgeGame.initMoving(createMoving());
             bridgeGame.move();
             outputView.printMap(bridgeGame.getMap());
-            checkRound(bridgeGame, turn);
+            checkRound(bridgeGame);
         }
     }
 
@@ -79,22 +77,22 @@ public class Controller {
         }
     }
 
-    private void checkRound(BridgeGame bridgeGame, Turn turn) {
-        if (bridgeGame.isFail()) {
-            checkCommand(bridgeGame, turn);
+    private void checkRound(BridgeGame bridgeGame) {
+        if (!bridgeGame.isSuccess()) {
+            checkCommand(bridgeGame);
         }
         if (bridgeGame.isEnd()) {
             run = false;
         }
     }
 
-    private void checkCommand(BridgeGame bridgeGame, Turn turn) {
+    private void checkCommand(BridgeGame bridgeGame) {
         GameCommand gameCommand = createGameCommand();
         if (gameCommand.isQuit()) {
             run = false;
+            return;
         }
         bridgeGame.retry();
-        turn.increaseTurn();
     }
 
     private GameCommand createGameCommand() {
